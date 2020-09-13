@@ -5,13 +5,14 @@ import routes from "./routes";
 import path from 'path';
 import dotenv from 'dotenv';
 import AppError from "./errors/AppError";
+import cors from "cors";
 import './database';
 import uploadConfig from "./config/upload";
 
 dotenv.config({path: path.resolve(__dirname, '..', '.env')});
 
 const app = express();
-
+app.use(cors());
 app.use(express.json());
 
 app.use('/files', express.static(uploadConfig.directory));
