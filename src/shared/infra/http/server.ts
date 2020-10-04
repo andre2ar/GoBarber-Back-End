@@ -1,13 +1,15 @@
-import express, { Request, Response, NextFunction } from 'express';
-import 'express-async-errors';
 import 'reflect-metadata';
-import routes from "./routes";
-import path from 'path';
-import dotenv from 'dotenv';
-import AppError from "./errors/AppError";
+
+import express, {NextFunction, Request, Response} from 'express';
 import cors from "cors";
-import './database';
-import uploadConfig from "./config/upload";
+import path from 'path';
+import routes from "./routes";
+import dotenv from 'dotenv';
+import 'express-async-errors';
+
+import AppError from "@shared/errors/AppError";
+import uploadConfig from "@config/upload";
+import '@shared/infra/typeorm';
 
 dotenv.config({path: path.resolve(__dirname, '..', '.env')});
 
