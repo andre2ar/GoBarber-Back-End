@@ -10,6 +10,7 @@ import 'express-async-errors';
 import AppError from "@shared/errors/AppError";
 import uploadConfig from "@config/upload";
 import '@shared/infra/typeorm';
+import '@shared/container';
 
 dotenv.config({path: path.resolve(__dirname, '..', '.env')});
 
