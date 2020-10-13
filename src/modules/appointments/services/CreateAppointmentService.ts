@@ -1,3 +1,4 @@
+import "reflect-metadata"; //JEST
 import Appointment from "../infra/typeorm/entities/Appointment";
 import { inject, injectable } from "tsyringe";
 import { startOfHour } from "date-fns";
