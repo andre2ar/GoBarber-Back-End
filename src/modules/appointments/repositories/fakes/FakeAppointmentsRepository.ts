@@ -7,7 +7,7 @@ import Appointment from "@modules/appointments/infra/typeorm/entities/Appointmen
 class FakeAppointmentsRepository implements IAppointmentsRepository {
     private appointments: Appointment[] = [];
     public async findByDate(date: Date): Promise<Appointment | undefined> {
-        return this.appointments.find(appointment => appointment.date === date);
+        return this.appointments.find(appointment => appointment.date.getTime() === date.getTime());
     }
 
     public async create({provider_id, date}: ICreateAppointmentDTO): Promise<Appointment> {
