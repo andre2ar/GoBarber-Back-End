@@ -4,10 +4,10 @@ import IUsersRepository from "@modules/users/respositories/IUsersRepository";
 import ICreateUserDTO from "@modules/users/dtos/ICreateUserDTO";
 import {v4 as uuid} from "uuid";
 
-class FakeUsersRepository implements IUsersRepository {
+export default class FakeUsersRepository implements IUsersRepository {
     private users: User[] = [];
     public async findById(id: string): Promise<User | undefined> {
-        return this.users.find(user => user.id === id)
+        return this.users.find(user => user.id === id);
     }
 
     public async findByEmail(email: string): Promise<User | undefined> {
@@ -35,5 +35,3 @@ class FakeUsersRepository implements IUsersRepository {
         return user;
     }
 }
-
-export default FakeUsersRepository;
