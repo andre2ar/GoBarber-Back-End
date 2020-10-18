@@ -8,10 +8,13 @@ export default class FakeUserTokensRepository implements IUsersTokenRepository {
     public async generate(user_id: string): Promise<UserToken> {
         const userToken = new UserToken();
 
+        const now = Date.now();
         Object.assign(userToken, {
             id: uuid(),
             token: uuid(),
             user_id,
+            created_at: now,
+            updated_at: now
         });
 
         this.userTokens.push(userToken);
