@@ -3,14 +3,15 @@ import 'reflect-metadata';
 import express, {NextFunction, Request, Response} from 'express';
 import cors from "cors";
 import path from 'path';
-import routes from "./routes";
-import dotenv from 'dotenv';
 import 'express-async-errors';
+import dotenv from 'dotenv';
 
 import AppError from "@shared/errors/AppError";
 import uploadConfig from "@config/upload";
 import '@shared/infra/typeorm';
 import '@shared/container';
+
+import routes from "./routes";
 
 dotenv.config({path: path.resolve(__dirname, '..', '.env')});
 

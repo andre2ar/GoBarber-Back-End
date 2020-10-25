@@ -9,7 +9,7 @@ interface IMessage {
 export default class EtherealMailProvider implements IMailProvider {
     private client: Transporter;
     constructor() {
-        const account = nodemailer.createTestAccount().then(account => {
+        nodemailer.createTestAccount().then(account => {
             this.client = nodemailer.createTransport({
                 host: account.smtp.host,
                 port: account.smtp.port,

@@ -13,9 +13,11 @@ export default class SendForgotPasswordEmailService {
     constructor(
         @inject('UsersRepository')
         private usersRepository: IUsersRepository,
+
         @inject('MailProvider')
         private mailProvider: IMailProvider,
-        @inject('UsersTokenRepository')
+
+        @inject('UserTokensRepository')
         private usersTokenRepository: IUsersTokenRepository,
     ) {}
 
@@ -26,8 +28,8 @@ export default class SendForgotPasswordEmailService {
             throw new AppError('User does not exists');
         }
 
-        await this.usersTokenRepository.generate(user.id);
+        const {token} = await this.usersTokenRepository.generate(user.id);
 
-        await this.mailProvider.sendMail(email, 'Password recover');
+        await this.mailProvider.sendMail(email, `Password recover: ${token}`);
     }
 }

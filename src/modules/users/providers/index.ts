@@ -6,4 +6,4 @@ import BCryptHashProvider from "@modules/users/providers/HashProvider/implementa
 container.registerSingleton<IHashProvider>(
     'HashProvider',
     BCryptHashProvider
-)
+);
