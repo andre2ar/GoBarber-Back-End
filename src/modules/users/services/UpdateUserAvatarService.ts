@@ -1,7 +1,3 @@
-import fs from 'fs';
-import path from 'path';
-
-import uploadConfig from "@config/upload";
 import AppError from "@shared/errors/AppError";
 
 import User from "../infra/typeorm/entities/User";
@@ -15,7 +11,7 @@ interface IRequest {
 }
 
 @injectable()
-class UpdateUserAvatarService {
+export default class UpdateUserAvatarService {
     constructor(
         @inject('UsersRepository')
         private usersRepository: IUsersRepository,
@@ -40,5 +36,3 @@ class UpdateUserAvatarService {
         return await this.usersRepository.save(user);
     }
 }
-
-export default UpdateUserAvatarService;

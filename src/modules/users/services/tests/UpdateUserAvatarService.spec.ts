@@ -3,7 +3,7 @@ import "reflect-metadata";
 import AppError from '@shared/errors/AppError';
 
 import FakeStorageProvider from '@shared/container/providers/StorageProvider/fakes/FakeStorageProvider';
-import UpdateUserAvatarService from './UpdateUserAvatarService';
+import UpdateUserAvatarService from '../UpdateUserAvatarService';
 import FakeUsersRepository from "@modules/users/respositories/fakes/FakeUsersRepository";
 
 let fakeUsersRepository: FakeUsersRepository;

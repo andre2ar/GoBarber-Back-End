@@ -2,8 +2,8 @@ import "reflect-metadata";
 
 import AppError from '@shared/errors/AppError';
 
-import FakeHashProvider from '../providers/HashProvider/fakes/FakeHashProvider';
-import AuthenticateUserService from './AuthenticateUserService';
+import FakeHashProvider from '../../providers/HashProvider/fakes/FakeHashProvider';
+import AuthenticateUserService from '../AuthenticateUserService';
 import FakeUsersRepository from "@modules/users/respositories/fakes/FakeUsersRepository";
 
 let fakeUsersRepository: FakeUsersRepository;
