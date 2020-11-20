@@ -1,9 +1,10 @@
 import "reflect-metadata"; //JEST
 import Appointment from "../infra/typeorm/entities/Appointment";
 import { inject, injectable } from "tsyringe";
-import {getHours, isBefore, startOfHour} from "date-fns";
+import {format, getHours, isBefore, startOfHour} from "date-fns";
 import AppError from "@shared/errors/AppError";
 import IAppointmentsRepository from "@modules/appointments/repositories/IAppointmentsRepository";
+import INotificationsRepository from "@modules/notifications/repositories/INotificationsRepository";
 
 interface IRequest {
     user_id: string;
@@ -15,7 +16,10 @@ interface IRequest {
 class CreateAppointmentService {
     constructor(
         @inject('AppointmentsRepository')
-        private appointmentsRepository: IAppointmentsRepository
+        private appointmentsRepository: IAppointmentsRepository,
+
+        @inject('NotificationsRepository')
+        private notificationsRepository: INotificationsRepository,
     ) {}
 
 
@@ -39,11 +43,20 @@ class CreateAppointmentService {
             throw new AppError('You can only create appointments between 8am and 5pm');
         }
 
-        return await this.appointmentsRepository.create({
+        const appointment = await this.appointmentsRepository.create({
             user_id,
             provider_id,
             date: appointmentDate
         });
+
+        const dateFormatted = format(appointmentDate, "MM/dd/yyyy 'at' HH:mm");
+
+        await this.notificationsRepository.create({
+            recipient_id: provider_id,
+            content: `New appointment: ${dateFormatted}`
+        });
+
+        return appointment;
     }
 }
 
