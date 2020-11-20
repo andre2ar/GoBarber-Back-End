@@ -1,17 +1,19 @@
 import 'reflect-metadata';
 
-import express, {NextFunction, Request, Response} from 'express';
-import cors from "cors";
-import path from 'path';
-import 'express-async-errors';
 import dotenv from 'dotenv';
+import path from 'path';
 
-import AppError from "@shared/errors/AppError";
-import uploadConfig from "@config/upload";
+import express, { Request, Response, NextFunction } from 'express';
+import cors from 'cors';
+import {errors, isCelebrateError} from 'celebrate';
+import 'express-async-errors';
+
+import uploadConfig from '@config/upload';
+import AppError from '@shared/errors/AppError';
+import routes from './routes';
+
 import '@shared/infra/typeorm';
 import '@shared/container';
-
-import routes from "./routes";
 
 dotenv.config({path: path.resolve(__dirname, '..', '.env')});
 
@@ -22,6 +24,7 @@ app.use(express.json());
 app.use('/files', express.static(uploadConfig.tmpFolder));
 app.use('/', routes);
 
+app.use(errors());
 app.use((err: Error, request:Request, response: Response, next: NextFunction) => {
     if(err instanceof AppError) {
         return response.status(err.statusCode).json({
