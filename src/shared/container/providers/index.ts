@@ -1,5 +1,5 @@
 import { container } from "tsyringe";
-
+import mailConfig from "@config/mail";
 import IStorageProvider from "@shared/container/providers/StorageProvider/models/IStorageProvider";
 import DiskStorageProvider from "@shared/container/providers/StorageProvider/implementations/DiskStorageProvider";
 
@@ -9,6 +9,7 @@ import HandlebarsMailTemplateProvider
 
 import IMailProvider from "@shared/container/providers/MailProvider/models/IMailProvider";
 import EtherealMailProvider from "@shared/container/providers/MailProvider/implementations/EtherealMailProvider";
+import SESMailProvider from "@shared/container/providers/MailProvider/implementations/SESMailProvider";
 
 container.registerSingleton<IStorageProvider>(
     'StorageProvider',
@@ -22,5 +23,6 @@ container.registerSingleton<IMailTemplateProvider>(
 
 container.registerInstance<IMailProvider>(
     'MailProvider',
-    container.resolve(EtherealMailProvider),
+    mailConfig.driver === 'ethereal' ?
+    container.resolve( EtherealMailProvider) : container.resolve( SESMailProvider),
 );
