@@ -1,7 +1,6 @@
 import 'reflect-metadata';
 
-import dotenv from 'dotenv';
-import path from 'path';
+import 'dotenv/config';
 
 import express, { Request, Response, NextFunction } from 'express';
 import cors from 'cors';
@@ -14,8 +13,6 @@ import routes from './routes';
 
 import '@shared/infra/typeorm';
 import '@shared/container';
-
-dotenv.config({path: path.resolve(__dirname, '..', '.env')});
 
 const app = express();
 app.use(cors());

@@ -1,13 +1,10 @@
 import path from 'path';
-import dotenv from 'dotenv';
 
 import AppError from "@shared/errors/AppError";
 import IUsersRepository from "@modules/users/respositories/IUsersRepository";
 import {inject, injectable} from "tsyringe";
 import IMailProvider from "@shared/container/providers/MailProvider/models/IMailProvider";
 import IUsersTokenRepository from "@modules/users/respositories/IUsersTokenRepository";
-
-dotenv.config({path: path.resolve(__dirname, '..', '.env')});
 
 interface IRequest {
     email: string;
