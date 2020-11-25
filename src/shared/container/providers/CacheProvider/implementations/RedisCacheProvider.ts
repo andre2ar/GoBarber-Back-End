@@ -20,9 +20,7 @@ export default class RedisCacheProvider implements ICacheProvider {
       return null;
     }
 
-    const parsedData = JSON.parse(data) as T;
-
-    return parsedData;
+    return JSON.parse(data) as T;
   }
 
   public async invalidate(key: string): Promise<void> {
