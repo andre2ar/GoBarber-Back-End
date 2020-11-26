@@ -5,11 +5,13 @@ import FakeMailProvider from "@shared/container/providers/MailProvider/fakes/Fak
 import FakeUserTokensRepository from "@modules/users/respositories/fakes/FakeUserTokensRepository";
 import ResetPasswordService from "@modules/users/services/ResetPasswordService";
 import AppError from "@shared/errors/AppError";
+import FakeCacheProvider from "@shared/container/providers/CacheProvider/fakes/FakeCacheProvider";
 
 let fakeUsersRepository: FakeUsersRepository;
 let fakeMailProvider: FakeMailProvider;
 let fakeUserTokensRepository: FakeUserTokensRepository;
 let fakeHashProvider: FakeHashProvider;
+let fakeCacheProvider: FakeCacheProvider;
 
 let resetPassword: ResetPasswordService;
 let createUser: CreateUserService;
@@ -20,6 +22,7 @@ describe('Reset password', () => {
         fakeMailProvider = new FakeMailProvider();
         fakeUserTokensRepository = new FakeUserTokensRepository();
         fakeHashProvider = new FakeHashProvider();
+        fakeCacheProvider = new FakeCacheProvider();
 
         resetPassword = new ResetPasswordService(
             fakeUsersRepository,
@@ -29,7 +32,8 @@ describe('Reset password', () => {
 
         createUser = new CreateUserService(
             fakeUsersRepository,
-            fakeHashProvider
+            fakeHashProvider,
+            fakeCacheProvider
         );
     });
 

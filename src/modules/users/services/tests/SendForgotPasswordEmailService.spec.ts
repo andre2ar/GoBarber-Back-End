@@ -5,10 +5,12 @@ import SendForgotPasswordEmailService from "@modules/users/services/SendForgotPa
 import FakeMailProvider from "@shared/container/providers/MailProvider/fakes/FakeMailProvider";
 import AppError from "@shared/errors/AppError";
 import FakeUserTokensRepository from "@modules/users/respositories/fakes/FakeUserTokensRepository";
+import FakeCacheProvider from "@shared/container/providers/CacheProvider/fakes/FakeCacheProvider";
 
 let fakeUsersRepository: FakeUsersRepository;
 let fakeMailProvider: FakeMailProvider;
 let fakeUserTokensRepository: FakeUserTokensRepository;
+let fakeCacheProvider: FakeCacheProvider;
 
 let sendForgotPasswordEmail: SendForgotPasswordEmailService;
 
@@ -16,6 +18,7 @@ describe('Send forgot password', () => {
     beforeEach(() => {
         fakeUsersRepository = new FakeUsersRepository();
         fakeMailProvider = new FakeMailProvider();
+        fakeCacheProvider = new FakeCacheProvider();
         fakeUserTokensRepository = new FakeUserTokensRepository();
 
         sendForgotPasswordEmail = new SendForgotPasswordEmailService(
@@ -27,7 +30,7 @@ describe('Send forgot password', () => {
 
     it('should be able to recover the password using the email', async function () {
         const fakeHashProvider = new FakeHashProvider();
-        const createUser = new CreateUserService(fakeUsersRepository, fakeHashProvider);
+        const createUser = new CreateUserService(fakeUsersRepository, fakeHashProvider, fakeCacheProvider);
 
         const user = await createUser.execute({
             name: 'John Doe',
@@ -48,7 +51,7 @@ describe('Send forgot password', () => {
 
     it('should generate a forgot password token', async function () {
         const fakeHashProvider = new FakeHashProvider();
-        const createUser = new CreateUserService(fakeUsersRepository, fakeHashProvider);
+        const createUser = new CreateUserService(fakeUsersRepository, fakeHashProvider, fakeCacheProvider);
 
         const user = await createUser.execute({
             name: 'John Doe',

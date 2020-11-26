@@ -1,5 +1,6 @@
 import "reflect-metadata";
 
+import 'dotenv/config';
 import AppError from '@shared/errors/AppError';
 
 import FakeHashProvider from '../../providers/HashProvider/fakes/FakeHashProvider';
