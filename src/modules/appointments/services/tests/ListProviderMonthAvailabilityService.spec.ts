@@ -1,18 +1,18 @@
-import "reflect-metadata";
-import AppError from "@shared/errors/AppError";
-import ListProviderMonthAvailabilityService from "@modules/appointments/services/ListProviderMonthAvailabilityService";
 import FakeAppointmentsRepository from "@modules/appointments/repositories/fakes/FakeAppointmentsRepository";
+import ListProviderMonthAvailabilityService from "@modules/appointments/services/ListProviderMonthAvailabilityService";
 
-let listProviderMonthAvailability: ListProviderMonthAvailabilityService;
 let fakeAppointmentsRepository: FakeAppointmentsRepository;
+let listProviderMonthAvailability: ListProviderMonthAvailabilityService;
 
 describe('ListProviderMonthAvailability', () => {
     beforeEach(() => {
         fakeAppointmentsRepository = new FakeAppointmentsRepository();
-        listProviderMonthAvailability = new ListProviderMonthAvailabilityService(fakeAppointmentsRepository);
+        listProviderMonthAvailability = new ListProviderMonthAvailabilityService(
+            fakeAppointmentsRepository,
+        );
     });
 
-    it('should be able to list provider month availability', async () => {
+    it('should be able to list the month availability from provider', async () => {
         await fakeAppointmentsRepository.create({
             provider_id: 'user',
             user_id: 'user',
@@ -87,10 +87,10 @@ describe('ListProviderMonthAvailability', () => {
 
         expect(availability).toEqual(
             expect.arrayContaining([
-                { day: 19, available: true },
+                { day: 19, available: false },
                 { day: 20, available: false },
-                { day: 21, available: true },
-                { day: 22, available: true },
+                { day: 21, available: false },
+                { day: 22, available: false },
             ]),
         );
     });
